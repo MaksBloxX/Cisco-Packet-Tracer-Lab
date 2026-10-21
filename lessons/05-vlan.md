@@ -33,11 +33,11 @@
 
 ### 🔹 VLAN সহ (আলাদা আলাদা Broadcast Domain):
 ```text
-        Switch
-     ┌────┼────┬────┐
-    PC0  PC1  PC2  PC3
-   [─── VLAN 10 ───] [─── VLAN 20 ───]
-      CSE গ্রুপ         EEE গ্রুপ
+              Switch
+     ┌─────┬─────┼───────┬────┐
+    PC0   PC1           PC2  PC3
+   [── VLAN 10 ──]  [── VLAN 20 ──]
+      CSE গ্রুপ           EEE গ্রুপ
 ```
 
 ## 🧠 VLAN কেন ব্যবহার করা হয়?
