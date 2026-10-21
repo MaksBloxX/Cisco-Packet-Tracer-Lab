@@ -280,6 +280,7 @@ show mac address-table
 3. **নামে সাইট খোলে না?** → PC-তে DNS IP `192.168.10.100`, DNS Service ON, A Record সঠিক
 4. **IP দিয়ে সাইট খোলে নামাতে?** → HTTP Service ON, Server0-এর IP Static
 5. **সবকিছু ঠিক কিন্তু কাজ করছে না?** → `copy running-config startup-config` করেছ তো? (রিস্টার্টে মুছে যাবে!)
+6. **দ্বিতীয় Website (যেমন `www.coffee.xyz`) যোগ করেছ, কিন্তু খোলে না?** → নতুন ডোমেনের **A Record** DNS-এ আছে কি না, ওই IP-তে HTTP ON কি না দেখো → [লেসন ০৪ · একাধিক সার্ভার/ওয়েবসাইট](04-dns-http-server.md)
 
 ---
 

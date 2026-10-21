@@ -17,6 +17,7 @@
 3. DNS Service-এ **A Record** (Name → IP) যোগ করা
 4. **HTTP Service** চালু করে ছোট ওয়েবসাইট হোস্ট করা
 5. PC থেকে **ডোমেন নাম দিয়ে** ওয়েবসাইট খোলা (DHCP + DNS একসাথে)
+6. **"Host Name Unresolved"** এররের ধাপে ধাপে সমাধান (Troubleshooting)
 
 ---
 
@@ -179,7 +180,114 @@ www.office.local
 
 ---
 
-# 🔁 Part 7 — লজিক: DHCP + DNS একসাথে কীভাবে কাজ করে?
+# 🌐 Part 7 — একাধিক সার্ভার ও একাধিক ওয়েবসাইট
+
+## A. দুইটি সার্ভার যোগ করলে (Server0 + Server1)
+
+ধরো, Server0-এ **Office Website**, Server1-এ **Coffee Website** চালাতে চাও:
+
+```text
+                 Router R1 (192.168.1.1)
+                       │
+                    Switch0
+                 ┌─────┼─────┐
+               PC0   Server0  Server1
+             (DHCP)  .100      .99
+                    DNS+HTTP   HTTP
+                    Office     Coffee
+```
+
+### 📋 IP Plan
+
+| Device | IP Address | Gateway | DNS Server | Service |
+| :--- | :--- | :--- | :--- | :--- |
+| **Server0** | `192.168.1.100` (Static) | `192.168.1.1` | `192.168.1.100` | DNS + HTTP |
+| **Server1** | `192.168.1.99` (Static) | `192.168.1.1` | `192.168.1.100` | HTTP |
+| **PC0** | DHCP | `192.168.1.1` | `192.168.1.100` | Client |
+
+> 💡 **মনে রাখো:** DNS Server ও Web Server একই ডিভাইসে থাকতে বাধ্যতামূলক নয়। এখানে DNS আছে Server0-তে, তাই **সবাই (Server1 সহ) DNS = `192.168.1.100`** ব্যবহার করবে।
+
+### Step 1 — দুই সার্ভারে Static IP দাও
+
+**Server0** → Desktop → IP Configuration → **Static:**
+```text
+IP Address:      192.168.1.100
+Subnet Mask:     255.255.255.0
+Default Gateway: 192.168.1.1
+DNS Server:      192.168.1.100
+```
+
+**Server1** → Desktop → IP Configuration → **Static:**
+```text
+IP Address:      192.168.1.99
+Subnet Mask:     255.255.255.0
+Default Gateway: 192.168.1.1
+DNS Server:      192.168.1.100
+```
+
+### Step 2 — Router-এ দুই সার্ভারের IP বাদ রাখো
+
+সার্ভারের Static IP যেন DHCP ক্লায়েন্টকে না দেয় — Router CLI-তে:
+
+```cisco
+enable
+configure terminal
+ip dhcp excluded-address 192.168.1.1 192.168.1.10
+ip dhcp excluded-address 192.168.1.99 192.168.1.100
+end
+copy running-config startup-config
+```
+*(`.1`–`.10` = Gateway ও অন্য Static Device; `.99`–`.100` = দুই সার্ভার)*
+
+### Step 3 — দুই সার্ভারে HTTP চালু করো
+
+* **Server0** → Services → HTTP → **ON** (`index.html`-এ চাইলে Office লেখা দাও)
+* **Server1** → Services → HTTP → **ON** (`index.html`-এ Coffee লেখা দাও)
+
+### Step 4 — DNS-এ দুই Website-এর Record (Server0-তে)
+
+Server0 → Services → DNS → **ON** → দুটি A Record:
+
+| Name | Type | Address | কোন সার্ভারের সাইট |
+| :--- | :--- | :--- | :--- |
+| `www.office.local` | A Record | `192.168.1.100` | Server0 |
+| `www.coffee.xyz` | A Record | `192.168.1.99` | Server1 |
+
+### Step 5 — PC0 থেকে টেস্ট
+
+```text
+ipconfig                  → DNS Server: 192.168.1.100 দেখাবে
+ping 192.168.1.99         → Reply ✅
+http://www.office.local   → Office Website ✅
+http://www.coffee.xyz     → Coffee Website ✅
+```
+
+---
+
+## B. একটি সার্ভারে ২ বা ততোধিক ওয়েবসাইট
+
+**একটি DNS Server-এ যত খুশি Website-এর Record রাখা যায়** — প্রতিটি ওয়েবসাইটের জন্য আলাদা DNS Server লাগে না।
+
+যদি **সব সাইট একটাই সার্ভারে** (যেমন `192.168.1.100`) রাখতে চাও — DNS-এ একের পর এক Record যোগ করো:
+
+| Name | Type | Address |
+| :--- | :--- | :--- |
+| `www.office.local` | A Record | `192.168.1.100` |
+| `www.coffee.xyz` | A Record | `192.168.1.100` |
+| `www.shop.xyz` | A Record | `192.168.1.100` |
+
+> 📌 **Packet Tracer-এর বাস্তবতা:** এক সার্ভারে একটাই `index.html` থাকে — তাই একই IP-তে সব ডোমেন গেলে **একই ওয়েবসাইট দেখাবে**। আলাদা আলাদা সাইট দেখাতে হলে **আলাদা সার্ভার (আলাদা IP) নাও** — ঠিক যেমন **A** অংশে দুই সার্ভারে দুই সাইট করা হয়েছে।
+
+### 🧠 নতুন যেকোনো Website যোগ করতে মাত্র ২টি কাজ
+
+1. **DNS-এ একটি A Record** (নাম → সঠিক IP)
+2. **ওই IP-তে HTTP Service ON**
+
+⚠️ **সবচেয়ে কমন ভুল:** Record-টি ভুল সার্ভারের DNS-এ যোগ করা। মনে রাখো — **ক্লায়েন্ট যে DNS-এর IP পায় (এখানে `.100`), সেই DNS-এই সব Website-এর Record থাকতে হবে।**
+
+---
+
+# 🔁 Part 8 — লজিক: DHCP + DNS একসাথে কীভাবে কাজ করে?
 
 ```text
 ১. PC0 DHCP-তে IP চায় → Router দেয়: IP + Gateway + DNS=192.168.1.100
@@ -203,6 +311,115 @@ www.office.local
 | DNS Request Failed | `www.office.local` স্পেলিং মেলাও (`.local` বাদ যায় না) |
 | PC-তে DNS IP আসছে না | Router-এর DHCP Pool-এ `dns-server 192.168.1.100` আছে কি না |
 | Website খুলতে চাইলে ভুল পেজ | HTTP Service ON কি না, `index.html` আছে কি না দেখো |
+| দ্বিতীয় Website (নতুন ডোমেন) খোলে না | DNS-এ ওই ডোমেনের A Record যোগ করা হয়েছে কি না (উপরে Part 7 দেখো) |
+| **Host Name Unresolved** (ব্রাউজারে এরর) | নিচের **ধাপে ধাপে সমাধান** দেখো |
+
+## 🧯 "Host Name Unresolved" — ধাপে ধাপে সমাধান
+
+**Host Name Unresolved** মানে: PC আপনার দেওয়া **Domain Name-কে IP-তে Resolve করতে পারছে না** — অর্থাৎ সমস্যা Website-এ নয়, **DNS Configuration**-এ।
+
+ধরো, Part 7-এর সেটআপে `http://www.coffee.xyz` লিখলে ব্রাউজারে এই এরর দেখাচ্ছে:
+
+| Device | IP | Service |
+| :--- | :--- | :--- |
+| **Server0** | `192.168.1.100` | DNS + Office Website |
+| **Server1** | `192.168.1.99` | Coffee Website |
+| **Router** | `192.168.1.1` | DHCP + Gateway |
+
+### Step 1 — Server0-তে DNS Record পরীক্ষা করো
+
+Server0 → **Services → DNS**, নিশ্চিত করো:
+
+* DNS Service: **On**
+* এই দুটি A Record আছে:
+
+| Name | Type | Address |
+| :--- | :--- | :--- |
+| `www.office.local` | A Record | `192.168.1.100` |
+| `www.coffee.xyz` | A Record | `192.168.1.99` |
+
+`www.coffee.xyz` না থাকলে নিচের তথ্য দিয়ে **Add** করো:
+
+```text
+Name:    www.coffee.xyz
+Type:    A Record
+Address: 192.168.1.99
+```
+
+> ⚠️ শুধু Server1-এ IP সেট করলেই Domain কাজ করবে না — **DNS-এও Record থাকতে হবে।**
+
+### Step 2 — Server0-এর IP Configuration পরীক্ষা করো
+
+Server0 → **Desktop → IP Configuration:**
+
+```text
+IP Address:      192.168.1.100
+Subnet Mask:     255.255.255.0
+Default Gateway: 192.168.1.1
+DNS Server:      192.168.1.100
+```
+
+### Step 3 — Server1-এর Configuration পরীক্ষা করো
+
+Server1 → **Desktop → IP Configuration:**
+
+```text
+IP Address:      192.168.1.99
+Subnet Mask:     255.255.255.0
+Default Gateway: 192.168.1.1
+DNS Server:      192.168.1.100
+```
+
+তারপর Server1 → **Services → HTTP → On** (Coffee Website-এর জন্য)।
+
+### Step 4 — PC0-এর DNS পরীক্ষা করো
+
+PC0 → **Desktop → IP Configuration** → **DHCP** সিলেক্ট করো। তারপর **Command Prompt:**
+
+```text
+ipconfig
+```
+
+নিশ্চিত করো — **DNS Server: 192.168.1.100** দেখাচ্ছে। DNS IP অন্য কিছু দেখালে বা একেবারে না থাকলে Router-এর DHCP Pool পরীক্ষা করো:
+
+```cisco
+enable
+show running-config
+```
+
+Pool-এর ভেতরে এই Configuration থাকতে হবে:
+
+```cisco
+ip dhcp pool OFFICE
+ network 192.168.1.0 255.255.255.0
+ default-router 192.168.1.1
+ dns-server 192.168.1.100
+```
+
+> 📌 `dns-server` কমান্ডটা DHCP Pool-এর ভেতরেই থাকতে হবে — না থাকলে PC-তে DNS Server-এর IP আসবেই না।
+
+### Step 5 — PC0 থেকে Ping Test
+
+```text
+ping 192.168.1.100     → Reply উচিত (DNS Server)
+ping 192.168.1.99      → Reply উচিত (Coffee Server)
+```
+
+* ✅ **Ping সফল, কিন্তু Domain কাজ করছে না** → সমস্যা DNS-এ: A Record বা PC-এর DNS Configuration দেখো (Step 1 ও Step 4)
+* ❌ **Ping ব্যর্থ** → সমস্যা Connection-এ: IP, Cable, Switch Port, Server Configuration দেখো
+
+### Step 6 — ব্রাউজারে আবার চেষ্টা করো
+
+PC0 → **Desktop → Web Browser:**
+
+```text
+http://www.office.local
+http://www.coffee.xyz
+```
+
+দুটি Domain-এর A Record সঠিক থাকলে এবং সংশ্লিষ্ট HTTP Service চালু থাকলে দুটো Website-ই খুলবে।
+
+> 🧠 **লজিক:** "Host Name Unresolved" এলে সমস্যা ৩টা জায়গায় যেকোনো একটাতে হতে পারে — **(১)** DNS-এ ওই নামের A Record নেই, **(২)** PC-তে DNS Server-এর IP ঠিক নেই (DHCP Pool-এ `dns-server` নেই), **(৩)** DNS Service ON নেই। উপরের ধাপগুলো ঠিক এই ৩টা জায়গা পরপর চেক করে — তাই যেকোনো DNS সমস্যায় এই ক্রমেই যাও।
 
 ---
 
