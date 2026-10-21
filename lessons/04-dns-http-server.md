@@ -4,7 +4,7 @@
 
 | 🎯 লক্ষ্য | ⏱️ সময় | 📊 লেভেল | 🧰 ল্যাব ফাইল |
 | :--- | :--- | :--- | :--- |
-| Packet Tracer-এ DNS + HTTP Server সেটআপ, DHCP সহ সম্পূর্ণ নেটওয়ার্ক | ~৫০ মিনিট | 🟡 Beginner–Intermediate | `lesson-04-dns-http-server.pkt` ✍️ তুমি বানাবে (নাম এই রাখো) |
+| Packet Tracer-এ DNS + HTTP Server সেটআপ, DHCP সহ সম্পূর্ণ নেটওয়ার্ক | ~৫০ মিনিট | 🟡 Beginner–Intermediate | [lesson-04-dns-http-server.pkt](../pkt-files/labs/lesson-04-dns-http-server.pkt) |
 
 **Tags:** `#dns` `#http` `#web-server` `#dhcp` `#domain` `#server-config`
 

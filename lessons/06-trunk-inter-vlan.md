@@ -4,7 +4,7 @@
 
 | 🎯 লক্ষ্য | ⏱️ সময় | 📊 লেভেল | 🧰 ল্যাব ফাইল |
 | :--- | :--- | :--- | :--- |
-| Trunk Link দিয়ে দুই সুইচে VLAN বহন + Router-on-a-Stick Inter-VLAN Routing | ~৬০ মিনিট | 🟡 Intermediate | `lesson-06-trunk-inter-vlan.pkt` ✍️ তুমি বানাবে (নাম এই রাখো) |
+| Trunk Link দিয়ে দুই সুইচে VLAN বহন + Router-on-a-Stick Inter-VLAN Routing | ~৬০ মিনিট | 🟡 Intermediate | [lesson-06-trunk-inter-vlan.pkt](../pkt-files/labs/lesson-06-trunk-inter-vlan.pkt) |
 
 **Tags:** `#trunk` `#802.1q` `#inter-vlan` `#router-on-a-stick` `#subinterface` `#encapsulation-dot1q`
 
@@ -38,6 +38,14 @@
         একই কেবলে VLAN 10 + VLAN 20 — দুটোরই ট্রাফিক ✅
 ```
 
+### 🔹 Trunk ছাড়া হলে কী হতো?
+
+Trunk না থাকলে প্রতি VLAN-এর জন্য **আলাদা আলাদা ফিজিক্যাল লিংক** লাগত — VLAN বাড়লে কেবল ও সুইচ পোর্টও বাড়তে থাকত। নিচের অ্যানিমেশনে সেটাই দেখানো:
+
+![Trunk Link ছাড়া VLAN Extending](images/extending-vlans-without-trunk-link.gif)
+
+✅ তাই একটাই **Trunk Link** সব VLAN-এর ট্রাফিক বহন করে — কেবলও কম লাগে, ব্যবস্থাপনাও সহজ।
+
 ## ১. Access Port বনাম Trunk Port
 
 | বিষয় | Access Port | Trunk Port |
@@ -46,6 +54,12 @@
 | **VLAN সংখ্যা** | শুধু **একটি** VLAN | **একাধিক** VLAN একসাথে |
 | **VLAN Tag** | থাকে না (untagged) | 802.1Q Tag থাকে |
 | **কমান্ড** | `switchport mode access` | `switchport mode trunk` |
+
+### 🔹 802.1Q VLAN Tagging — ফ্রেমে ট্যাগ কীভাবে বসে?
+
+Trunk-এ প্রতিটি ফ্রেমে একটা ছোট **VLAN Tag (802.1Q)** যুক্ত হয় — ট্যাগে থাকে VLAN ID। তাই গ্রহণকারী সুইচ সহজেই বুঝতে পারে ফ্রেমটি কোন VLAN-এর:
+
+![802.1Q VLAN Tagging](images/802-1q-vlan-tagging.gif)
 
 ---
 

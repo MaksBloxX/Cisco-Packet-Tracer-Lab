@@ -4,7 +4,7 @@
 
 | 🎯 লক্ষ্য | ⏱️ সময় | 📊 লেভেল | 🧰 ল্যাব ফাইল |
 | :--- | :--- | :--- | :--- |
-| VLAN + Inter-VLAN Routing + DHCP + DNS + HTTP — সব একসাথে | ~৯০ মিনিট | 🔴 Advanced (Capstone) | `lesson-08-final-project.pkt` ✍️ তুমি বানাবে (নাম এই রাখো) |
+| VLAN + Inter-VLAN Routing + DHCP + DNS + HTTP — সব একসাথে | ~৯০ মিনিট | 🔴 Advanced (Capstone) | [lesson-08-final-project.pkt](../pkt-files/labs/lesson-08-final-project.pkt) |
 
 **Tags:** `#final-project` `#capstone` `#vlan` `#inter-vlan` `#dhcp` `#dns` `#http` `#router-on-a-stick`
 

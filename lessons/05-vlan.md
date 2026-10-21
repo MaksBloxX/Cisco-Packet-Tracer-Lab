@@ -4,7 +4,7 @@
 
 | 🎯 লক্ষ্য | ⏱️ সময় | 📊 লেভেল | 🧰 ল্যাব ফাইল |
 | :--- | :--- | :--- | :--- |
-| একটি Switch-এ VLAN তৈরি, Port Assign ও VLAN Isolation প্রমাণ | ~৪৫ মিনিট | 🟡 Intermediate | `lesson-05-vlan.pkt` ✍️ তুমি বানাবে (নাম এই রাখো) |
+| একটি Switch-এ VLAN তৈরি, Port Assign ও VLAN Isolation প্রমাণ | ~৪৫ মিনিট | 🟡 Intermediate | [lesson-05-vlan.pkt](../pkt-files/labs/lesson-05-vlan.pkt) |
 
 **Tags:** `#vlan` `#switch` `#broadcast-domain` `#isolation` `#access-port` `#interface-range` `#vlan-10-20`
 

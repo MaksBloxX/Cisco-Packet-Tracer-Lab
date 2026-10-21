@@ -79,6 +79,9 @@
 | [`lessons/10-practice-lab.md`](lessons/10-practice-lab.md) | Practice Lab — ৬০% Simple + ৪০% Hard, **সমাধানসহ** |
 | [`lessons/11-practice-list.md`](lessons/11-practice-list.md) | Practice List — **সমাধান ছাড়া** Self-Practice |
 | `lessons/images/*.jpg` | লেসন ০৯-এর Real Hardware ছবি |
+| `lessons/12-problem-solve.md` | শেষ লেসন — Problem Solve (সমস্যা ও সমাধানের ব্যাংক) |
+| `pkt-files/labs/lesson-03…08-*.pkt` | লেসন ০৩–০৮-এর ল্যাব ফাইল — কনভেনশন অনুযায়ী নামেই ✅ |
+| `lessons/images/*.gif` | লেসন ০৬-এর 802.1Q Tagging ও Trunk ছাড়া VLAN Extending অ্যানিমেশন |
 
 ---
 

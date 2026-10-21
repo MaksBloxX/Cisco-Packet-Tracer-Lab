@@ -4,7 +4,7 @@
 
 | 🎯 লক্ষ্য | ⏱️ সময় | 📊 লেভেল | 🧰 ল্যাব ফাইল |
 | :--- | :--- | :--- | :--- |
-| সুইচের ৩টি গুরুত্বপূর্ণ প্রযুক্তি: STP · Port Security · EtherChannel | ~৬০ মিনিট | 🟠 Intermediate–Advanced | `lesson-07-switching.pkt` ✍️ তুমি বানাবে (নাম এই রাখো) |
+| সুইচের ৩টি গুরুত্বপূর্ণ প্রযুক্তি: STP · Port Security · EtherChannel | ~৬০ মিনিট | 🟠 Intermediate–Advanced | [lesson-07-switching.pkt](../pkt-files/labs/lesson-07-switching.pkt) |
 
 **Tags:** `#stp` `#port-security` `#etherchannel` `#lacp` `#root-bridge` `#loop-prevention`
 

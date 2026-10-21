@@ -159,18 +159,18 @@
 lessons/05-vlan.md   ←→   pkt-files/labs/lesson-05-vlan.pkt
 ```
 
-### 📋 যেসব pkt ফাইল লাগবে (এগুলোই আপনি বানাবেন/রিপ্লেস করবেন)
+### 📋 লেসন ভিত্তিক pkt ফাইল (✅ = ফাইল আছে · ✍️ = এখনো বাকি)
 
 | লেসন | pkt ফাইলের নাম | অবস্থা | আপনি যা করবেন |
 | :--- | :--- | :---: | :--- |
 | [০১](lessons/01-router-cli-basics.md) | `lesson-01-router-cli-basics.pkt` | ✅ আছে | আপনার প্র্যাকটিস ফাইল বসানো আছে — চাইলে **এই নামে replace** করে নতুন দিন |
 | [০২](lessons/02-static-routing.md) | `lesson-02-static-routing.pkt` | ✅ আছে | একইভাবে — চাইলে **replace** |
-| [০৩](lessons/03-dhcp.md) | `lesson-03-dhcp.pkt` | ✍️ নেই | **নতুন ফাইল দাও** |
-| [০৪](lessons/04-dns-http-server.md) | `lesson-04-dns-http-server.pkt` | ✍️ নেই | **নতুন ফাইল দাও** |
-| [০৫](lessons/05-vlan.md) | `lesson-05-vlan.pkt` | ✍️ নেই | **নতুন ফাইল দাও** |
-| [০৬](lessons/06-trunk-inter-vlan.md) | `lesson-06-trunk-inter-vlan.pkt` | ✍️ নেই | **নতুন ফাইল দাও** |
-| [০৭](lessons/07-switching.md) | `lesson-07-switching.pkt` | ✍️ নেই | **নতুন ফাইল দাও** |
-| [০৮](lessons/08-final-project.md) | `lesson-08-final-project.pkt` | ✍️ নেই | **নতুন ফাইল দাও** |
+| [০৩](lessons/03-dhcp.md) | `lesson-03-dhcp.pkt` | ✅ আছে | **নতুন যুক্ত** — চাইলে replace করে নতুন দিন |
+| [০৪](lessons/04-dns-http-server.md) | `lesson-04-dns-http-server.pkt` | ✅ আছে | **নতুন যুক্ত** — চাইলে replace করে নতুন দিন |
+| [০৫](lessons/05-vlan.md) | `lesson-05-vlan.pkt` | ✅ আছে | **নতুন যুক্ত** — চাইলে replace করে নতুন দিন |
+| [০৬](lessons/06-trunk-inter-vlan.md) | `lesson-06-trunk-inter-vlan.pkt` | ✅ আছে | **নতুন যুক্ত** — চাইলে replace করে নতুন দিন |
+| [০৭](lessons/07-switching.md) | `lesson-07-switching.pkt` | ✅ আছে | **নতুন যুক্ত** — চাইলে replace করে নতুন দিন |
+| [০৮](lessons/08-final-project.md) | `lesson-08-final-project.pkt` | ✅ আছে | **নতুন যুক্ত** — চাইলে replace করে নতুন দিন |
 | [০৯](lessons/09-real-hardware.md) | — | — | লাগবে না (ছবির লেসন) |
 | [১০](lessons/10-practice-lab.md) | `practice-lab.pkt` | ⭐ ঐচ্ছিক | নিজের অনুশীলনের ফাইল |
 | [১১](lessons/11-practice-list.md) | `practice-list.pkt` | ⭐ ঐচ্ছিক | নিজের অনুশীলনের ফাইল |
@@ -240,7 +240,7 @@ Cisco-Packet-Tracer-Lab/
     ├── 📁 labs/                        ← 🔗 লেসন-সংযুক্ত (lesson-NN-*.pkt)
     │   ├── lesson-01-router-cli-basics.pkt    ✅
     │   ├── lesson-02-static-routing.pkt       ✅
-    │   └── lesson-03…08-*.pkt                 ✍️ আপনি দেবেন
+    │   └── lesson-03…08-*.pkt                 ✅ (নতুন)
     ├── 📁 practice/                    ← আপনার এক্সট্রা প্র্যাকটিস (লেসনের অংশ নয়)
     │   ├── office-shared-printer-network.pkt
     │   └── ip-subnet-tester.pkt

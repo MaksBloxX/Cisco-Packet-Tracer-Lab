@@ -4,7 +4,7 @@
 
 | 🎯 লক্ষ্য | ⏱️ সময় | 📊 লেভেল | 🧰 ল্যাব ফাইল |
 | :--- | :--- | :--- | :--- |
-| Router-এ DHCP Pool কনফিগার করে PC-গুলোতে স্বয়ংক্রিয় IP বিতরণ | ~৪০ মিনিট | 🟢 Beginner | `lesson-03-dhcp.pkt` ✍️ তুমি বানাবে (নাম এই রাখো) |
+| Router-এ DHCP Pool কনফিগার করে PC-গুলোতে স্বয়ংক্রিয় IP বিতরণ | ~৪০ মিনিট | 🟢 Beginner | [lesson-03-dhcp.pkt](../pkt-files/labs/lesson-03-dhcp.pkt) |
 
 **Tags:** `#dhcp` `#dhcp-pool` `#excluded-address` `#auto-ip` `#default-router`
 
