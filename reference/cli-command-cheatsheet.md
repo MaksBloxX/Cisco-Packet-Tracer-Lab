@@ -3,7 +3,7 @@
 > **নেভিগেশন:** [🏠 হোম](../README.md) · [🎓 ফাইনাল প্রজেক্ট](../lessons/08-final-project.md)
 > এটি লেসন নয় — সব লেসনের কমান্ডের **রেফারেন্স/প্র্যাকটিস গাইড**। প্রয়োজন অনুযায়ী খুঁজে নাও।
 
-**Tags:** `#cheatsheet` `#cli` `#commands` `#reference` `#ccna` `#show-commands`
+**Tags:** `#cheatsheet` `#cli` `#commands` `#reference` `#ccna` `#show-commands` `#shortcut`
 
 ---
 
@@ -24,6 +24,26 @@
 | `reload` | রাউটার/সুইচ রিস্টার্ট | Privileged |
 | `?` | সাহায্য (যেকোনো জায়গায়) | সব |
 
+### ⚡ Shortcut — কমান্ড ছোট করে টাইপ করো (Abbreviation Rule)
+
+**নিয়ম:** IOS-এ যেকোনো কমান্ড বা শব্দের **unique prefix** টাইপ করলেই চলে — অর্থাৎ এতটুকু লিখলেই যেন বাকি কোনো কমান্ড না মেলে। পুরোটা টাইপ করা **বাধ্যতামূলক নয়।**
+
+| পুরো কমান্ড | শর্টকাট | নোট |
+| :--- | :--- | :--- |
+| `show interfaces` | `show int` (বা `sh int`) | ✅ **টেস্ট করা — কাজ করে** |
+| `interface fastEthernet 0/0` | `interface fas 0/0` (বা `int fa0/0`) | ✅ **টেস্ট করা — কাজ করে** (`fas`/`fa` = `fastEthernet`-এরই শুরু) |
+| `configure terminal` | `conf t` | প্রায় সবাই এটাই লেখে |
+| `interface g0/0` | `int g0/0` | `interface` → `int` |
+| `show running-config` | `show run` / `sh run` | |
+| `show ip interface brief` | `sh ip int br` | সবচেয়ে জনপ্রিয় শর্টকাট |
+| `copy running-config startup-config` | `copy run start` (বা `wr`) | |
+| `no shutdown` | `no shut` | |
+| `ip address ...` | `ip add ...` | |
+
+⚠️ **কেন `show int` চলল, কিন্তু `show in` চলে না?** — `in` দিয়ে শুরু হয় একাধিক কমান্ড (`interface`, `inventory`...) → IOS দেবে `% Ambiguous command`। কিন্তু `int` দিয়ে শুরু হয় শুধু `interface`/`interfaces` → কোনো দ্বিধা নেই, তাই কাজ করে ✅ একইভাবে `fas` দিয়ে শুরু হয় শুধু `fastEthernet`।
+
+> 🧠 তাই পুরো কমান্ড মুখস্থ না করেও লেখা যায় — শুধু মনে রাখো **কতটুকু লিখলে unique হবে**। নিশ্চিত না হলে `?` চাপো।
+
 ---
 
 ## 🔵 Part 2 · Router Configuration Commands
@@ -35,8 +55,8 @@
 | `ip address 192.168.1.1 255.255.255.0` | IP + Mask সেট |
 | `no shutdown` | Interface **চালু** |
 | `shutdown` | Interface **বন্ধ** |
-| `show ip interface brief` | Interface IP/Status সারণি |
-| `show interfaces` | Interface-এর বিস্তারিত পরিসংখ্যান |
+| `show ip interface brief` (sh ip int br) | Interface IP/Status সারণি |
+| `show interfaces` (show int ✅) | Interface-এর বিস্তারিত পরিসংখ্যান |
 | `show ip route` | **Routing Table** |
 | `ping 10.0.0.2` | Connectivity পরীক্ষা |
 | `traceroute 10.0.0.2` | প্যাকেটের পথ পরীক্ষা |

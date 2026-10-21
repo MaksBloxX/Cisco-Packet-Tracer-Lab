@@ -13,7 +13,7 @@
 ## 🎯 এই লেসনে যা শিখবে
 
 1. Cisco Router-এর **CLI Mode** গুলো (User → Privileged → Global → Interface)
-2. সবচেয়ে দরকারি **Basic Commands** এবং তাদের Shortcut
+2. সবচেয়ে দরকারি **Basic Commands** এবং তাদের **Shortcut (Abbreviation নিয়ম)**
 3. **Complete Router Configuration Formula** (মনে রাখার সিরিয়াল ফর্মুলা)
 4. ১ Router + ১ Switch + ২ PC দিয়ে **প্রথম হাতে-কলমে ল্যাব**
 5. `ping` দিয়ে **Connectivity Test** ও সমস্যা সমাধান
@@ -131,6 +131,22 @@ Router(config-if)#  ──ip address + no shutdown──►  (interface live ✅
 Router(config-if)#  ──end──►  Router#
 Router#  ──copy run start──►  (save ✅)
 ```
+
+### ⚡ এই শর্টকাটগুলো কেন চলল? (Abbreviation Rule)
+
+উপরে `conf t`, `int g0/0`, `copy run start` — পুরো কমান্ড না লিখেও কাজ হলো। কারণ **IOS-এ যেকোনো কমান্ডের unique prefix টাইপ করলেই চলে** — এতটুকু লিখলে যেন অন্য কোনো কমান্ড না মেলে।
+
+| পুরো কমান্ড | শর্টকাট | প্রমাণ |
+| :--- | :--- | :--- |
+| `configure terminal` | `conf t` | ✅ সবার চেনা |
+| `interface g0/0` | `int g0/0` | ✅ উপরেই ব্যবহার হয়েছে |
+| `show interfaces` | `show int` | ✅ **টেস্ট করা — কাজ করে** |
+| `interface fastEthernet 0/0` | `interface fas 0/0` | ✅ **টেস্ট করা — কাজ করে** |
+| `copy running-config startup-config` | `copy run start` | ✅ উপরেই ব্যবহার হয়েছে |
+
+⚠️ **সাবধান:** prefix যেন **দ্ব্যর্থক** (ambiguous) না হয় — যেমন `show in` চলবে না (`interface`, `inventory` — দুটোই `in` দিয়ে শুরু), কিন্তু `show int` চলে ✅। একইভাবে `fas` দিয়ে শুরু হয় শুধু `fastEthernet`।
+
+> 🧠 সব শর্টকাট এক নজরে → [Cheat-Sheet · ⚡ Shortcut](../reference/cli-command-cheatsheet.md)
 
 ---
 
