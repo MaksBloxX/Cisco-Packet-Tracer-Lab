@@ -129,6 +129,14 @@
 </tr>
 
 <tr>
+<td><b>১২</b></td>
+<td><a href="lessons/12-problem-solve.md"><b>🛠️ Problem Solve — সমস্যা ও সমাধান</b></a></td>
+<td>যেকোনো নতুন সমস্যা ও তার <b>ধাপে ধাপে সমাধান</b> — সব এখানেই জমা হবে (Problem Bank)। প্রথম সমস্যা: VLAN 20 থেকে অতিরিক্ত পোর্ট সরানো। ❌ সমস্যা → 🎯 চাইছি → ✅ সমাধান → 🔍 যাচাই → 🧠 লজিক — প্রতিটি সমস্যা একই গঠনে।</td>
+<td>🟢→🔴</td>
+<td><code>problem-solve</code> <code>troubleshooting</code> <code>bank</code></td>
+</tr>
+
+<tr>
 <td><b>📖</b></td>
 <td><a href="reference/cli-command-cheatsheet.md"><b>CLI Command Cheat-Sheet</b></a></td>
 <td>সব লেসনের কমান্ড এক জায়গায়: CLI, Router, Switch, Subnetting, DHCP, Routing (Static/RIP/OSPF), VLAN/Trunk, Security (Password/SSH), STP, EtherChannel, CDP ও Troubleshooting Formula। পরীক্ষার আগে ঘাটতে হবে এমন রেফারেন্স!</td>
@@ -166,6 +174,7 @@ lessons/05-vlan.md   ←→   pkt-files/labs/lesson-05-vlan.pkt
 | [০৯](lessons/09-real-hardware.md) | — | — | লাগবে না (ছবির লেসন) |
 | [১০](lessons/10-practice-lab.md) | `practice-lab.pkt` | ⭐ ঐচ্ছিক | নিজের অনুশীলনের ফাইল |
 | [১১](lessons/11-practice-list.md) | `practice-list.pkt` | ⭐ ঐচ্ছিক | নিজের অনুশীলনের ফাইল |
+| [১২](lessons/12-problem-solve.md) | `lesson-12-problem-solve.pkt` | ✍️ নেই | **নতুন ফাইল দাও** (problem-র ভাঙা scenario ধরে রাখো — fix করার অনুশীলন) |
 
 > 📌 **কীভাবে দেবেন:** ফাইলটা Packet Tracer-এ সেভ করে নামটা উপরের টেবিল অনুযায়ী হুবহু রেখে `pkt-files/labs/` ফোল্ডারে দিন — লেসনের সাথে অটো কানেক্ট হয়ে যাবে। লেসনের ভেতরের "🧰 pkt ফাইল" লাইনটাও এই নাম দেখাচ্ছে।
 
@@ -188,12 +197,13 @@ lessons/05-vlan.md   ←→   pkt-files/labs/lesson-05-vlan.pkt
 │ 01 CLI Basics  │ → │ 04 DNS + Web Server    │ → │ 07 STP / Security /  │ → │ 09 Real Hardware 📷 │
 │ 02 Static Route│ → │ 05 VLAN                │ → │    EtherChannel      │ → │ 10 Practice Lab 🧪  │
 │ 03 DHCP        │ → │ 06 Trunk + Inter-VLAN  │ → │ 08 Final Project 🎓  │ → │ 11 Practice List 📝 │
+│                │   │                        │   │                      │   │ 12 Problem Solve 🔧  │
 └────────────────┘   └────────────────────────┘   └──────────────────────┘   └─────────────────────┘
         │                       │                          │                          │
         └─────────── প্রতিটি ধাপে .pkt ফাইল দিয়ে হাতে-কলমে অনুশীলন ──────────────────────┘
 ```
 
-> **Practice এর ধরন:** [লেসন ১০](lessons/10-practice-lab.md)-এ সমাধান আছে (আটকে গেলে দেখবে) — [লেসন ১১](lessons/11-practice-list.md)-এ কোনো সমাধান নেই (নিজে পারতে হবে)। দুটোই দরকারি!
+> **Practice এর ধরন:** [লেসন ১০](lessons/10-practice-lab.md)-এ সমাধান আছে (আটকে গেলে দেখবে) — [লেসন ১১](lessons/11-practice-list.md)-এ কোনো সমাধান নেই (নিজে পারতে হবে)। দুটোই দরকারি! আর যেকোনো নতুন সমস্যা/কেস এলে সেটা [লেসন ১২ · Problem Solve](lessons/12-problem-solve.md)-এ জমা হবে, সমাধানসহ।
 
 **পরামর্শ:** লেসন বাদ না দিয়ে **০১ → ০৮ সিরিয়াল ধরে** যাও — প্রতিটি লেসন পরের লেসনের ভিত্তি। প্রতিটি লেসনের শেষের **✅ Checklist** ও **🎯 Challenge** সম্পন্ন করেই পরের ধাপে যাওয়া উচিত।
 
@@ -208,7 +218,7 @@ Cisco-Packet-Tracer-Lab/
 ├── 📄 README.md                        ← তুমি এখন এখানে!
 ├── 📄 RENAME-MAP.md                    ← পুরনো → নতুন ফাইল নামের ম্যাপ
 │
-├── 📁 lessons/                         ← 📚 ১১টি সিরিয়াল লেসন
+├── 📁 lessons/                         ← 📚 ১২টি সিরিয়াল লেসন
 │   ├── 01-router-cli-basics.md
 │   ├── 02-static-routing.md
 │   ├── 03-dhcp.md
@@ -220,6 +230,7 @@ Cisco-Packet-Tracer-Lab/
 │   ├── 09-real-hardware.md            ← 📷 আসল ডিভাইস/কেবলের ছবি
 │   ├── 10-practice-lab.md             ← 🧪 সমাধানসহ প্র্যাকটিস
 │   ├── 11-practice-list.md            ← 📝 সমাধান ছাড়া চ্যালেঞ্জ
+│   ├── 12-problem-solve.md            ← 🛠️ সমস্যা ও সমাধান (বাড়তে থাকবে)
 │   └── 📁 images/                     ← লেসন ০৯-এর ছবি
 │
 ├── 📁 reference/
@@ -267,7 +278,7 @@ Cisco-Packet-Tracer-Lab/
 3. লেসনের **🔗 pkt ফাইলটি** (থাকলে) Packet Tracer-এ খোলো — না থাকলে লেসনের Topology দেখে **নিজে তৈরি করো, এটাই বেশি শেখায়!**
 4. **ধাপগুলো অনুসরণ** করো → `show` কমান্ড দিয়ে ভেরিফাই করো → Ping টেস্ট করো
 5. লেসনের শেষের **✅ Checklist** সম্পন্ন করো → পরের লেসনে যাও!
-6. সব লেসন শেষে [Practice Lab](lessons/10-practice-lab.md) (সমাধানসহ) → [Practice List](lessons/11-practice-list.md) (নিজে চেষ্টা) দিয়ে নিজেকে পরীক্ষা করো।
+6. সব লেসন শেষে [Practice Lab](lessons/10-practice-lab.md) (সমাধানসহ) → [Practice List](lessons/11-practice-list.md) (নিজে চেষ্টা) দিয়ে নিজেকে পরীক্ষা করো — আর যেকোনো নতুন সমস্যা/কেস এলে [Problem Solve](lessons/12-problem-solve.md)-এ সমাধানসহ জমা হবে।
 
 ---
 

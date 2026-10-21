@@ -94,5 +94,6 @@
 | `lessons/06-trunk-inter-vlan.md` | `pkt-files/labs/lesson-06-trunk-inter-vlan.pkt` |
 | `lessons/07-switching.md` | `pkt-files/labs/lesson-07-switching.pkt` |
 | `lessons/08-final-project.md` | `pkt-files/labs/lesson-08-final-project.pkt` |
+| `lessons/12-problem-solve.md` | `pkt-files/labs/lesson-12-problem-solve.pkt` |
 
 > এভাবে নাম রাখলে লেসন ↔ pkt ফাইল সবসময় জুড়ে যাবে — খুঁজতে সময় লাগবে না।

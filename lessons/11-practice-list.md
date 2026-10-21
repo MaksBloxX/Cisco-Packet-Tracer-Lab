@@ -1,6 +1,6 @@
 # লেসন ১১ · Practice List — নিজে চেষ্টা করো (কোনো সমাধান নেই)
 
-> **নেভিগেশন:** [⬅ লেসন ১০](10-practice-lab.md) · [🏠 হোম](../README.md) · [📖 Cheat-Sheet](../reference/cli-command-cheatsheet.md)
+> **নেভিগেশন:** [⬅ লেসন ১০](10-practice-lab.md) · [🏠 হোম](../README.md) · [📖 Cheat-Sheet](../reference/cli-command-cheatsheet.md) · [পরের লেসন ১২ ➡](12-problem-solve.md)
 
 | 🎯 লক্ষ্য | ⏱️ সময় | 📊 লেভেল | 🧰 pkt ফাইল |
 | :--- | :--- | :--- | :--- |
@@ -110,6 +110,6 @@
 
 ---
 
-> **নেভিগেশন:** [⬅ লেসন ১০](10-practice-lab.md) · [🏠 হোম](../README.md) · [📖 Cheat-Sheet](../reference/cli-command-cheatsheet.md)
+> **নেভিগেশন:** [⬅ লেসন ১০](10-practice-lab.md) · [🏠 হোম](../README.md) · [📖 Cheat-Sheet](../reference/cli-command-cheatsheet.md) · [পরের লেসন ১২ ➡](12-problem-solve.md)
 
 **এই লেসনের Tags:** `#practice-list` `#no-solution` `#homework` `#exam` `#self-assessment`
