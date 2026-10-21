@@ -6,7 +6,7 @@
 | :--- | :--- | :--- | :--- |
 | একটি Switch-এ VLAN তৈরি, Port Assign ও VLAN Isolation প্রমাণ | ~৪৫ মিনিট | 🟡 Intermediate | `lesson-05-vlan.pkt` ✍️ তুমি বানাবে (নাম এই রাখো) |
 
-**Tags:** `#vlan` `#switch` `#broadcast-domain` `#isolation` `#access-port` `#vlan-10-20`
+**Tags:** `#vlan` `#switch` `#broadcast-domain` `#isolation` `#access-port` `#interface-range` `#vlan-10-20`
 
 ---
 
@@ -17,6 +17,7 @@
 3. `switchport access vlan` দিয়ে **Port Assign** করা
 4. `show vlan brief` দিয়ে **ভেরিফিকেশন**
 5. **একই VLAN = Ping ✅**, **ভিন্ন VLAN = Ping ❌** — Isolation প্রমাণ
+6. **`interface range`** দিয়ে একসাথে একাধিক পোর্ট Assign — আর PC বাড়লে/ফাঁকা পোর্ট রাখলে রেঞ্জ কীভাবে বদলাবে
 
 ---
 
@@ -26,18 +27,18 @@
 
 ### 🔹 VLAN ছাড়া (সবাই এক Broadcast Domain):
 ```text
-        Switch (সব এক নেটওয়ার্ক)
-     ┌────┼────┬────┐
-    PC0  PC1  PC2  PC3    ← সবার ট্রাফিক একসাথে, একটি ভুল ব্রডকাস্ট = সবাই ক্ষতিগ্রস্ত
+              Switch (সব এক নেটওয়ার্ক)
+   ┌───────┬───────────┬───────┐
+  PC0     PC1         PC2     PC3    ← সবার ট্রাফিক একসাথে, একটি ভুল ব্রডকাস্ট = সবাই ক্ষতিগ্রস্ত
 ```
 
 ### 🔹 VLAN সহ (আলাদা আলাদা Broadcast Domain):
 ```text
-        Switch
-     ┌────┼────┬────┐
-    PC0  PC1  PC2  PC3
-   [─── VLAN 10 ───] [─── VLAN 20 ───]
-      CSE গ্রুপ         EEE গ্রুপ
+              Switch
+   ┌───────┬───────────┬───────┐
+  PC0     PC1         PC2     PC3
+[── VLAN 10 ──]     [── VLAN 20 ──]
+    CSE গ্রুপ           EEE গ্রুপ
 ```
 
 ## 🧠 VLAN কেন ব্যবহার করা হয়?
@@ -56,12 +57,12 @@
 **ডিভাইস:** ১ × Switch (2960) · ৪ × PC (PC-PT)
 
 ```text
-                 Switch0
-        ┌────┬────┬────┬────┐
-      Fa0/1 Fa0/2 Fa0/3 Fa0/4
-        │    │     │     │
-       PC0  PC1   PC2   PC3
-      192.168.10.1  192.168.10.2   192.168.20.1  192.168.20.2
+                         Switch0
+       ┌─────────────┬─────────────┬─────────────┐
+     Fa0/1         Fa0/2         Fa0/3         Fa0/4
+       │             │             │             │
+      PC0           PC1           PC2           PC3
+ 192.168.10.1  192.168.10.2  192.168.20.1  192.168.20.2
 ```
 
 | VLAN | নাম | Port | Subnet | PC |
@@ -123,6 +124,54 @@ copy running-config startup-config
 ```
 
 > 💡 `switchport mode access` = এই পোর্টটি শুধুমাত্র একটি VLAN-এর End Device-এর জন্য (PC, Printer)।
+
+### 🔢 `interface range fastEthernet 0/1 - 2` — এই সংখ্যাগুলো মানে কী?
+
+কমান্ডটাকে টুকরো করে দেখি:
+
+| অংশ | মানে |
+| :--- | :--- |
+| `interface range` | একসাথে **একাধিক পোর্ট** সিলেক্ট করে সবগুলোতে একই কনফিগ বসানো |
+| `fastEthernet` | পোর্টের টাইপ — সুইচের সাধারণ পোর্ট (সংক্ষেপে `Fa`) |
+| `0/` | Slot/Module 0 — ছোট সুইচে সবসময় এটাই |
+| `1 - 2` | পোর্ট **1** থেকে পোর্ট **2** পর্যন্ত → অর্থাৎ **Fa0/1 ও Fa0/2** দুটোই |
+
+**কেন এখানে `1 - 2` লেখা?** — কারণ এই lab-এ VLAN 10-এর ২টা PC ঠিক **Fa0/1** ও **Fa0/2**-তে লাগানো আছে (উপরে Part 2-এর Connection Table দেখো)।
+
+> 🧠 **লজিক:** `interface range`-এর সংখ্যা আসে **তোমার টোপোলজি থেকে** — ওই VLAN-এর ডিভাইসগুলো কোন কোন পোর্টে লাগানো, ঠিক সেই হিসাবে রেঞ্জ লিখবে। এলোমেলো সংখ্যা দেওয়ার দরকার নেই।
+
+### 📈 মানুষ/PC বাড়লে রেঞ্জ কীভাবে বদলাবে
+
+ধরো, CSE department-এ ২টার বদলে **৫ জন** লাগবে, EEE-তেও **৫ জন**:
+
+| পরিস্থিতি | VLAN 10 (CSE) | VLAN 20 (EEE) |
+| :--- | :--- | :--- |
+| **এই lab:** 2 PC + 2 PC | `interface range fastEthernet 0/1 - 2` | `interface range fastEthernet 0/3 - 4` |
+| **5 + 5 জন**, সবাই পাশাপাশি | `interface range fastEthernet 0/1 - 5` | `interface range fastEthernet 0/6 - 10` |
+| **5 + 5 জন**, মাঝে পোর্ট ফাঁকা রেখে | `interface range fastEthernet 0/1 - 5` | `interface range fastEthernet 0/8 - 12` |
+
+* সারি ২: CSE-র ৫ জন → `0/1` থেকে `0/5` পর্যন্ত; তারপর EEE-র ৫ জন শুরু হয়েছে `0/6` থেকে → `0/6 - 10`
+* সারি ৩: `0/6` ও `0/7` ছেড়ে দিয়ে (ফাঁকা রেখে) EEE শুরু হলে `0/8` থেকে → রেঞ্জ `0/8 - 12`
+
+> ✅ **ফাঁকা পোর্ট রাখা সম্পূর্ণ ঠিক!** যে পোর্টে কিছু লাগানো নেই, সেটা নিজে থেকেই Default VLAN 1-এ পড়ে থাকে — কোনো সমস্যা করে না। পরে দরকার হলে ওই ফাঁকা পোর্টেও নতুন ডিভাইস লাগিয়ে Assign করা যাবে।
+
+> 📌 পোর্টগুলো একেবারে পাশাপাশি না থাকলে **কমা** দিয়েও এক range-এ দেওয়া যায়:
+> ```cisco
+> interface range fastEthernet 0/8 - 10, fastEthernet 0/12
+> ```
+> এতে Fa0/8, Fa0/9, Fa0/10 ও Fa0/12 — চারটে পোর্ট একসাথে সিলেক্ট হবে (Fa0/11 বাদ)।
+
+### 🧠 নতুন PC বসালে মনে রাখার ৩ ধাপ
+
+1. **পোর্ট ঠিক করো** — নতুন PC-টা সুইচের কোন পোর্টে লাগাচ্ছো (যেমন `Fa0/5`)
+2. **Assign করো** — ওই পোর্টটাকে সঠিক VLAN-এ বসাও:
+   ```cisco
+   interface fastEthernet 0/5
+    switchport mode access
+    switchport access vlan 10
+   ```
+   *(একটা পোর্টের জন্য `interface fastEthernet 0/5` — `range` লাগবে না; একাধিক হলে `interface range`)*
+3. **যাচাই করো** — `show vlan brief` দিয়ে দেখো পোর্টটা সঠিক VLAN-এ দেখাচ্ছে কি না
 
 **Port Assignment যাচাই:**
 ```cisco
@@ -195,6 +244,7 @@ ping 192.168.20.1
 | VLAN তৈরি | `vlan [ID]` + `name [NAME]` |
 | Port-এ VLAN Assign | `switchport mode access` + `switchport access vlan [ID]` |
 | একসাথে একাধিক Port | `interface range fa0/1 - 2` |
+| ছাড়া (skip) দিয়ে Port একসাথে | `interface range fa0/8 - 10, fa0/12` |
 | VLAN তালিকা | `show vlan brief` |
 | সেভ | `copy running-config startup-config` |
 
@@ -206,6 +256,7 @@ ping 192.168.20.1
 | :--- | :--- |
 | একই VLAN-এও Ping হয় না | PC-র IP একই Subnet-এ কি না, কেবল সঠিক কি না দেখো |
 | Port ভুল VLAN-এ | `show vlan brief` দিয়ে Port Assignment মেলাও |
+| নতুন PC-এর পোর্ট কাজ করছে না | পোর্টটা `interface range` রেঞ্জের ভেতরে আছে কি না দেখো — রেঞ্জের বাইরে থাকলে আলাদা করে Assign করো |
 | `switchport` কমান্ড কাজ করছে না | সুইচ হলেই চলবে (L3 Switch/Router-এ ভিন্ন সিনট্যাক্স) |
 | ভিন্ন VLAN-এ Ping হয়ে যাচ্ছে | VLAN Assign ভুল হয়েছে — পোর্টগুলো আবার চেক করো |
 
@@ -232,4 +283,4 @@ VLAN-এর Isolation বুঝেছ। এবার জানো **একা�
 
 > **নেভিগেশন:** [⬅ লেসন ০৪](04-dns-http-server.md) · [🏠 হোম](../README.md) · [পরের লেসন ০৬ ➡](06-trunk-inter-vlan.md)
 
-**এই লেসনের Tags:** `#vlan` `#vlan-isolation` `#access-port` `#broadcast-domain` `#show-vlan-brief`
+**এই লেসনের Tags:** `#vlan` `#vlan-isolation` `#access-port` `#interface-range` `#broadcast-domain` `#show-vlan-brief`
