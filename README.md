@@ -197,9 +197,9 @@ lessons/05-vlan.md   ←→   pkt-files/labs/lesson-05-vlan.pkt
 │ 01 CLI Basics  │ → │ 04 DNS + Web Server    │ → │ 07 STP / Security /  │ → │ 09 Real Hardware 📷 │
 │ 02 Static Route│ → │ 05 VLAN                │ → │    EtherChannel      │ → │ 10 Practice Lab 🧪  │
 │ 03 DHCP        │ → │ 06 Trunk + Inter-VLAN  │ → │ 08 Final Project 🎓  │ → │ 11 Practice List 📝 │
-│                │   │                        │   │                      │   │ 12 Problem Solve 🔧  │
+│                │   │                        │   │                      │   │ 12 Problem Solve 🔧 │
 └────────────────┘   └────────────────────────┘   └──────────────────────┘   └─────────────────────┘
-        │                       │                          │                          │
+        │                       │                            │                          │
         └─────────── প্রতিটি ধাপে .pkt ফাইল দিয়ে হাতে-কলমে অনুশীলন ──────────────────────┘
 ```
 
@@ -278,7 +278,7 @@ Cisco-Packet-Tracer-Lab/
 
 <a id="contribute"></a>
 
-## 🤝 কন্ট্রিবিউট
+## 🤝 Contribute
 
 ভুল/টাইপো পেলে Issue তুলো বা PR পাঠাও — বিশেষ করে:
 * কমান্ড/আউটপুটে কোনো ভুল থাকলে
