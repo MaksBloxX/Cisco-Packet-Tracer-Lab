@@ -238,14 +238,8 @@ Cisco-Packet-Tracer-Lab/
 │
 └── 📁 pkt-files/                       ← 🧰 Cisco Packet Tracer ফাইল
     ├── 📁 labs/                        ← 🔗 লেসন-সংযুক্ত (lesson-NN-*.pkt)
-    │   ├── lesson-01-router-cli-basics.pkt    ✅
-    │   ├── lesson-02-static-routing.pkt       ✅
-    │   └── lesson-03…08-*.pkt                 ✅
     ├── 📁 practice/                    ← আপনার এক্সট্রা প্র্যাকটিস (লেসনের অংশ নয়)
-    │   ├── office-shared-printer-network.pkt
-    │   └── ip-subnet-tester.pkt
-    └── 📁 topologies/                  ← আপনার টপোলজি প্র্যাকটিস
-        └── bus / star / ring / mesh / tree / hybrid .pkt
+    └── 📁 topologies/         
 ```
 
 ---
