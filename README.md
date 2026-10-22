@@ -10,8 +10,9 @@
 ![Language](https://img.shields.io/badge/Language-Bangla-006A4E?style=for-the-badge)
 ![Lessons](https://img.shields.io/badge/Lessons-12%20%2B%20Cheat--Sheet-FF6F00?style=for-the-badge)
 ![Level](https://img.shields.io/badge/Level-Beginner%20to%20Advanced-2E8B57?style=for-the-badge)
+![CCNA Fundamentals](https://img.shields.io/badge/CCNA%20Fundamentals-9%20Lessons-9B59B6?style=for-the-badge)
 
-[📚 লেসন](#lessons) · [🔗 pkt কানেকশন](#pkt) · [🗺️ শেখার পথ](#path) · [🗂️ স্ট্রাকচার](#structure) · [🚀 ব্যবহার](#usage) · [📖 Cheat-Sheet](reference/cli-command-cheatsheet.md) · [📁 Rename Map](RENAME-MAP.md)
+[📚 লেসন](#lessons) · [🎓 CCNA ফাউন্ডেশন](ccna-fundamentals/README.md) · [🔗 pkt কানেকশন](#pkt) · [🗺️ শেখার পথ](#path) · [🗂️ স্ট্রাকচার](#structure) · [🚀 ব্যবহার](#usage) · [📖 Cheat-Sheet](reference/cli-command-cheatsheet.md) · [📁 Rename Map](RENAME-MAP.md)
 
 </div>
 
@@ -24,6 +25,25 @@
 > 🧠 **ধারণা (Concept)** → 🧩 **ধাপে-ধাপে ল্যাব** → 🔍 **ভেরিফিকেশন** → 🔁 **প্যাকেট ফ্লো লজিক** → ❌ **ট্রাবলশুটিং** → ✅ **চেকলিস্ট**
 
 প্রতিটি লেসনের শুরুতে ও শেষে **⬅ আগের / পরের ➡** নেভিগেশন আছে — সিরিয়াল ধরে পড়তে পারবে। পাশে পাশে `.pkt` ল্যাব ফাইলগুলো Packet Tracer-এ খুলে সরাসরি হাতে-কলমে অনুশীলন করো।
+
+---
+
+<a id="tracks"></a>
+
+## 🚪 দুইটা কোর্স — কোনটা আগে?
+
+একই রেপোতে দুটো আলাদা ট্র্যাক — একই ভাষা, একই স্টাইল, শুধু শুরুর জায়গা আলাদা।
+
+| | 🅰️ [হাতে-কলমে কোর্স](lessons/01-router-cli-basics.md) | 🅱️ [CCNA Fundamentals](ccna-fundamentals/README.md) |
+| :--- | :--- | :--- |
+| **শুরু** | Router-এর CLI দিয়ে | "নেটওয়ার্ক আসলে কী?" দিয়ে |
+| **ধরন** | config-first — সোজা ল্যাব | theory-first — আগে ধারণা, তারপর ল্যাব |
+| **লেসন** | ১২টা (০১–১২) | ৯টা (০১–০৯) |
+| **ভালো লাগবে যদি** | "আজই PT-তে নেটওয়ার্ক বানাব" | "আগে বুঝব, তারপর বানাব" |
+| **শেষ** | Final Project + Problem Solve | 🏆 University Capstone |
+
+> 🧭 **সেরা পথ:** CCNA Fundamentals-এর **০১–০৪** → হাতে-কলমে **০১–০২** → আবার **০৫–০৬** → হাতে-কলমে **০৩–০৮** → শেষে **০৭–০৯**।
+> সময় কম? অন্তত **CCNA ০১–০৫** পড়ো — subnetting না জানলে বাকি কোর্সটা শুধু কমান্ড মুখস্থ হয়ে যায়।
 
 ---
 
@@ -236,10 +256,22 @@ Cisco-Packet-Tracer-Lab/
 ├── 📁 reference/
 │   └── cli-command-cheatsheet.md       ← 📖 সব কমান্ডের রেফারেন্স
 │
+├── 📁 ccna-fundamentals/               ← 🎓 তত্ত্ব-আগে কোর্স (০১–০৯)
+│   ├── README.md                       ← কোর্স সূচি + স্টাডি প্ল্যান
+│   ├── 01-network-basics.md
+│   ├── 02-osi-tcp-ip.md
+│   ├── 03-mac-ethernet-arp.md
+│   ├── 04-ipv4-addressing.md
+│   ├── 05-subnetting-basics.md
+│   ├── 06-subnetting-vlsm.md
+│   ├── 07-acl-nat.md
+│   ├── 08-troubleshooting.md
+│   └── 09-capstone-university-lab.md   ← 🏆 সব একসাথে
+│
 └── 📁 pkt-files/                       ← 🧰 Cisco Packet Tracer ফাইল
     ├── 📁 labs/                        ← 🔗 লেসন-সংযুক্ত (lesson-NN-*.pkt)
     ├── 📁 practice/                    ← আপনার এক্সট্রা প্র্যাকটিস (লেসনের অংশ নয়)
-    └── 📁 topologies/         
+    └── 📁 topologies/                  ← bus / star / ring / mesh / tree / hybrid
 ```
 
 ---
