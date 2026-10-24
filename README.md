@@ -253,8 +253,9 @@ Cisco-Packet-Tracer-Lab/
 │   ├── 12-problem-solve.md            ← 🛠️ সমস্যা ও সমাধান (বাড়তে থাকবে)
 │   └── 📁 images/                     ← লেসন ০৬–০৯-এর ছবি ও GIF
 │
-├── 📁 Extras/                          ← 📤 বাড়তি ল্যাব (পাঠ্যক্রমের বাইরে)
-│   └── ftp-server-lab.md               ← FTP সার্ভার — আপলোড/ডাউনলোড
+├── 📁 Extras/                          ← 📦 বাড়তি ল্যাব (পাঠ্যক্রমের বাইরে)
+│   ├── ftp-server-lab.md               ← FTP সার্ভার — আপলোড/ডাউনলোড
+│   └── email-server-lab.md             ← Email সার্ভার — SMTP/POP3
 │
 ├── 📁 reference/
 │   └── cli-command-cheatsheet.md       ← 📖 সব কমান্ডের রেফারেন্স
