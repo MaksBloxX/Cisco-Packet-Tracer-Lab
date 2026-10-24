@@ -534,9 +534,6 @@ Network A (LAN 1)              Network B (LAN 2)
 
 ---
 
-
----
-
 ## 🧪 ৯. Packet Tracer Practical — Build Your First LAN
 
 ### Objective
