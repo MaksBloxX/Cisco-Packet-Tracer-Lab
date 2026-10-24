@@ -1,0 +1,485 @@
+🌐 Cisco Packet Tracer Full Lab: FTP Server Configuration
+
+Beginner to CCNA Practical | English Commands + বাংলা ব্যাখ্যা
+
+এই Lab-এ আমরা শুরু থেকে শেষ পর্যন্ত শিখব কীভাবে Cisco Packet Tracer-এ FTP Server তৈরি করতে হয়, PC থেকে Server-এ File Upload করতে হয় এবং Server থেকে File Download করতে হয়।
+
+তোমার দেওয়া Topology অনুযায়ী কাজ করব। পাশাপাশি তোমার FTP Client-এর ? Command-এ যে Commands দেখা গেছে, সেগুলোও ব্যাখ্যা করব।
+
+1. Understand the Network Topology
+
+তোমার Lab-এ রয়েছে:
+
+1 × Router 1941
+1 × Switch 2960
+4 × PCs
+1 × Server
+Network Diagram
+                  FTP SERVER
+                  10.10.10.2/24
+                  Gateway: 10.10.10.1
+                       |
+                       |
+                  Router 1941
+                 /            \
+                /              \
+      LAN: 192.168.1.0/24       Server LAN: 10.10.10.0/24
+                |
+            Switch 2960
+          /    |    |    \
+        PC0   PC1  PC2   PC3
+IP Address Table
+Device	IP Address	Subnet Mask	Default Gateway
+Router LAN interface	192.168.1.1	255.255.255.0	—
+Router Server interface	10.10.10.1	255.255.255.0	—
+FTP Server	10.10.10.2	255.255.255.0	10.10.10.1
+PC0	192.168.1.3	255.255.255.0	192.168.1.1
+PC1	192.168.1.2	255.255.255.0	192.168.1.1
+PC2	192.168.1.4	255.255.255.0	192.168.1.1
+PC3	192.168.1.5	255.255.255.0	192.168.1.1
+
+গুরুত্বপূর্ণ: তোমার ছবিতে Server-এর IP 10.10.10.1 লেখা থাকলে সেটি Router-এর Server-facing interface-এর IP-এর সঙ্গে conflict করবে। তাই Server-এর IP 10.10.10.2 ব্যবহার করব।
+
+2. Configure the Router
+
+Router-এ ক্লিক করো → CLI।
+
+নিচের Commands একে একে চালাও।
+
+enable
+configure terminal
+
+interface gigabitEthernet 0/0
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+exit
+
+interface gigabitEthernet 0/1
+ip address 10.10.10.1 255.255.255.0
+no shutdown
+exit
+
+end
+write memory
+
+ব্যাখ্যা:
+
+Command	কাজ
+enable	Privileged EXEC Mode-এ প্রবেশ
+configure terminal	Global Configuration Mode-এ প্রবেশ
+interface gigabitEthernet 0/0	নির্দিষ্ট Interface নির্বাচন
+ip address ...	Interface-এ IP Address দেওয়া
+no shutdown	Interface চালু করা
+exit	আগের Mode-এ ফিরে যাওয়া
+end	Privileged EXEC Mode-এ ফিরে যাওয়া
+write memory	Configuration Save করা
+
+Interface-এর নাম ভিন্ন হলে আগে চালাও:
+
+show ip interface brief
+Verify the Router
+show ip interface brief
+
+দুটি Interface-ই up/up দেখালে ভালো।
+
+3. Configure the PCs
+
+প্রতিটি PC-তে ক্লিক করো:
+
+Desktop → IP Configuration
+
+PC0-তে:
+
+IP Address:      192.168.1.3
+Subnet Mask:     255.255.255.0
+Default Gateway: 192.168.1.1
+
+PC1-তে:
+
+IP Address:      192.168.1.2
+Subnet Mask:     255.255.255.0
+Default Gateway: 192.168.1.1
+
+PC2-তে:
+
+IP Address:      192.168.1.4
+Subnet Mask:     255.255.255.0
+Default Gateway: 192.168.1.1
+
+PC3-তে:
+
+IP Address:      192.168.1.5
+Subnet Mask:     255.255.255.0
+Default Gateway: 192.168.1.1
+4. Configure the FTP Server
+
+Server-এ ক্লিক করো:
+
+Desktop → IP Configuration
+
+নিচের Configuration দাও:
+
+IP Address:      10.10.10.2
+Subnet Mask:     255.255.255.0
+Default Gateway: 10.10.10.1
+
+এবার FTP Service চালু করতে হবে।
+
+Enable FTP
+
+Server → Services → FTP
+
+তারপর:
+
+FTP Service On করো।
+Username তৈরি করো: admin
+Password দাও: 1234
+প্রয়োজনীয় Permissions নির্বাচন করো।
+Write এবং Read Permission চালু রাখো।
+User Add/Save করার Button থাকলে সেটিতে ক্লিক করো।
+
+এখন FTP Server প্রস্তুত।
+
+5. Test the Network Connection
+
+PC0-তে ক্লিক করো:
+
+Desktop → Command Prompt
+
+প্রথমে PC0-এর Configuration দেখো:
+
+ipconfig
+
+এরপর Router-এর LAN Interface-এ Ping করো:
+
+ping 192.168.1.1
+
+তারপর FTP Server-এ Ping করো:
+
+ping 10.10.10.2
+Expected Result
+
+Reply পাওয়া গেলে PC0 থেকে Server পর্যন্ত IP Connectivity কাজ করছে।
+
+যদি Ping ব্যর্থ হয়, FTP পরীক্ষা করার আগে IP Address, Gateway, Cable এবং Router Interface পরীক্ষা করো।
+
+মনে রাখবে: Ping সফল হলেই FTP Login সফল হবে, এমন নয়। FTP Service এবং User Permissions-ও ঠিক থাকতে হবে।
+
+6. Create a Text File on PC0
+
+এখন তোমার মূল কাজ: PC0-তে একটি Text File তৈরি করে FTP Server-এ Upload করা।
+
+PC0 → Desktop → Command Prompt
+
+প্রথমে:
+
+dir
+
+এতে Local Files দেখতে পাবে।
+
+তোমার Screenshot-এ এই Files দেখা গিয়েছিল:
+
+ftp test.txt
+sampleFile.txt
+
+অর্থাৎ, sampleFile.txt আগে থেকেই আছে।
+
+সহজ পদ্ধতি: আগে থেকেই থাকা sampleFile.txt ব্যবহার করো। এতে নতুন File তৈরি করার প্রয়োজন নেই।
+
+নতুন File তৈরি করতে চাইলে
+
+Packet Tracer-এর PC Command Prompt সব Windows CMD Command সমর্থন করে না। তাই echo Command কাজ করবে ধরে নেওয়া ঠিক হবে না।
+
+যদি তোমার Packet Tracer PC-তে Text Editor বা File তৈরির সুবিধা থাকে, তাহলে সেখানে একটি Text File তৈরি করে নাম দিতে পারো:
+
+abc_test.txt
+
+Filename-এ Space না রাখলে FTP Command ব্যবহার করা সহজ হয়।
+
+7. Connect to the FTP Server
+
+এখন PC0-এর Command Prompt-এ লিখো:
+
+ftp 10.10.10.2
+
+এখানে:
+
+ftp = FTP Client চালু করে Server-এর সঙ্গে Connect করার চেষ্টা করে।
+10.10.10.2 = FTP Server-এর IP Address।
+
+Connection সফল হলে এমন Message দেখতে পারো:
+
+Connected to 10.10.10.2
+220 Welcome to PT FTP server
+
+এরপর Username চাইবে।
+
+Username: admin
+
+তারপর Password চাইবে।
+
+Password: 1234
+
+সফল হলে:
+
+230 Logged in
+
+এখন তুমি FTP Prompt-এ আছ:
+
+ftp>
+
+এখানে গুরুত্বপূর্ণ: C:\> হলো PC-এর Local Command Prompt। ftp> হলো FTP Session-এর Prompt। দুটির Command এক নয়।
+
+8. FTP Commands — তোমার Packet Tracer Client অনুযায়ী
+
+তোমার Screenshot-এ ? Command চালানোর পর এই Commands দেখা গেছে:
+
+?
+cd
+delete
+dir
+get
+help
+passive
+put
+pwd
+quit
+rename
+
+এখন একে একে বুঝে নাও।
+
+8.1 ?
+ftp> ?
+
+কাজ: FTP Client-এ Support করা Commands-এর তালিকা দেখায়।
+
+তোমার Packet Tracer Version-এ এটি ব্যবহার করে Supported Commands দেখা যাচ্ছে।
+
+8.2 help
+ftp> help
+
+কাজ: FTP Commands সম্পর্কে Help দেখায়।
+
+8.3 dir
+ftp> dir
+
+কাজ: FTP Server-এর File List দেখায়।
+
+মনে রাখবে: ftp> Prompt-এ dir Server-এর Files দেখায়। C:\> Prompt-এ dir PC-এর Files দেখায়।
+
+8.4 pwd
+ftp> pwd
+
+কাজ: FTP Server-এর Current Directory দেখায়।
+
+8.5 put
+ftp> put sampleFile.txt
+
+কাজ: PC থেকে FTP Server-এ File Upload করে।
+
+PC0 → FTP Server
+
+Upload করার আগে নিশ্চিত হও যে sampleFile.txt PC0-তে আছে এবং FTP User-এর Write Permission আছে।
+
+8.6 get
+ftp> get sampleFile.txt
+
+কাজ: FTP Server থেকে PC0-তে File Download করে।
+
+FTP Server → PC0
+
+Server-এ File না থাকলে Download ব্যর্থ হবে।
+
+8.7 delete
+ftp> delete sampleFile.txt
+
+কাজ: FTP Server থেকে নির্দিষ্ট File Delete করার চেষ্টা করে।
+
+⚠️ সাবধান: এটি Server-এর File মুছে ফেলতে পারে। Practice Lab-এ প্রয়োজন ছাড়া ব্যবহার করবে না।
+
+8.8 rename
+ftp> rename old.txt new.txt
+
+কাজ: FTP Server-এর File Rename করার চেষ্টা করে।
+
+Packet Tracer-এর FTP Implementation অনুযায়ী Syntax বা Support ভিন্ন হতে পারে।
+
+8.9 cd
+ftp> cd foldername
+
+কাজ: FTP Server-এর Directory পরিবর্তন করে, যদি Server-এর Directory Structure এবং Client এটি Support করে।
+
+8.10 passive
+ftp> passive
+
+কাজ: FTP-এর Passive Mode চালু বা বন্ধ করে।
+
+কিছু FTP Client-এ এটি Toggle হিসেবে কাজ করে।
+
+8.11 quit
+ftp> quit
+
+কাজ: FTP Session বন্ধ করে Local Command Prompt-এ ফিরে যায়।
+
+9. Upload Your File — put
+
+এখন মূল কাজটি করো।
+
+তুমি ইতিমধ্যে FTP Server-এ Login করেছ:
+
+ftp>
+
+প্রথমে Server-এর Files দেখো:
+
+ftp> dir
+
+এরপর PC0-এর আগে থেকে থাকা File Upload করার চেষ্টা করো:
+
+ftp> put sampleFile.txt
+তোমার আগের Error কেন হয়েছিল?
+
+তুমি লিখেছিলে:
+
+ftp> put "ftp test.txt"
+
+তারপর পেয়েছিলে:
+
+Error opening "ftp test.txt" (No such file or directory)
+
+এর মানে FTP Client Local File খুলতে পারেনি।
+
+এখানে সম্ভাব্য সমস্যা হলো Space-যুক্ত Filename এবং Packet Tracer FTP Client-এর Filename Handling।
+
+তাই প্রথমে:
+
+ftp> put sampleFile.txt
+
+ব্যবহার করো।
+
+যদি এটিও ব্যর্থ হয়, তাহলে FTP Session থেকে বের হয়ে:
+
+ftp> quit
+C:\> dir
+
+চালিয়ে নিশ্চিত হও যে File-টি PC0-তে আছে।
+
+তারপর আবার FTP Login করে Upload করো।
+
+গুরুত্বপূর্ণ: put Command সাধারণত FTP Client-এর Local Filesystem থেকে File পড়ে। শুধু Server-এর File List-এ নাম দেখা গেলেই Local File Upload করা যাবে, এমন নয়।
+
+10. Download a File — get
+
+ধরো, sampleFile.txt Server-এ Upload হয়েছে।
+
+এবার FTP Prompt-এ:
+
+ftp> get sampleFile.txt
+
+এটি Server থেকে PC0-তে File Download করার চেষ্টা করবে।
+
+Download শেষে:
+
+ftp> quit
+C:\> dir
+
+এখন PC0-এর Local File List দেখো।
+
+Note: একই নামের File আগে থেকে থাকলে Download-এর ফলাফল Packet Tracer-এর FTP Client অনুযায়ী ভিন্ন হতে পারে।
+
+11. Delete and Rename — Practice Only
+
+এই Commands Server-এর Files পরিবর্তন করতে পারে। তাই আগে Test File ব্যবহার করবে।
+
+Rename
+ftp> rename old.txt new.txt
+
+এখানে:
+
+old.txt = বর্তমান File Name
+new.txt = নতুন File Name
+Delete
+ftp> delete old.txt
+
+এটি Server থেকে old.txt মুছে দিতে পারে।
+
+সতর্কতা: ভুল Filename দিলে গুরুত্বপূর্ণ File Delete বা Rename হয়ে যেতে পারে।
+
+12. Complete Lab Workflow — শুরু থেকে শেষ পর্যন্ত
+
+নিচের Workflow-টি মনে রাখবে।
+
+A. PC0 Local Command Prompt
+C:\> ipconfig
+C:\> ping 192.168.1.1
+C:\> ping 10.10.10.2
+C:\> dir
+C:\> ftp 10.10.10.2
+B. FTP Login
+Username: admin
+Password: 1234
+C. FTP Commands
+ftp> ?
+ftp> pwd
+ftp> dir
+ftp> put sampleFile.txt
+ftp> dir
+ftp> get sampleFile.txt
+ftp> quit
+
+এই Commands-এর উদ্দেশ্য:
+
+Step	Command	কাজ
+1	ipconfig	PC-এর IP Configuration দেখা
+2	ping 192.168.1.1	Router পর্যন্ত Connectivity পরীক্ষা
+3	ping 10.10.10.2	FTP Server পর্যন্ত Connectivity পরীক্ষা
+4	dir	PC-এর Local Files দেখা
+5	ftp 10.10.10.2	FTP Server-এ Connect
+6	?	Supported FTP Commands দেখা
+7	pwd	Server Directory দেখা
+8	dir	Server-এর Files দেখা
+9	put sampleFile.txt	Server-এ File Upload
+10	get sampleFile.txt	Server থেকে File Download
+11	quit	FTP Session বন্ধ
+13. Common Errors and Solutions
+Error	সম্ভাব্য কারণ	কী পরীক্ষা করবে
+Connection timed out	Server-এ Network Connectivity নেই	IP, Gateway, Router Interface
+Connection refused	FTP Service চালু নেই বা Connection গ্রহণ করছে না	Server → Services → FTP
+Username ok, need password	Server Password চাইছে	সঠিক Password দাও
+530 Login incorrect	Username বা Password ভুল	FTP User Configuration
+Error opening ... No such file or directory	Local File পাওয়া যাচ্ছে না বা Filename Handling সমস্যা	PC0-তে dir, Filename
+Upload Permission Error	FTP User-এর Write Permission নেই	FTP User Permissions
+get Failed	Server-এ File নেই বা Download ব্যর্থ	ftp> dir
+14. CCNA Viva Questions
+
+Q1. What is FTP?
+
+FTP stands for File Transfer Protocol. It is used to transfer files between a client and a server over a network.
+
+বাংলা: FTP দিয়ে Client এবং Server-এর মধ্যে File আদান-প্রদান করা যায়।
+
+Q2. What is the default FTP control port?
+
+Answer: TCP Port 21.
+
+Q3. Which command uploads a file?
+
+Answer: put
+
+Q4. Which command downloads a file?
+
+Answer: get
+
+Q5. What is the purpose of dir?
+
+Answer: It displays a directory or file listing.
+
+Q6. Why is a default gateway required on PC0?
+
+Answer: PC0 uses its default gateway to reach networks outside its local subnet, including the FTP Server network.
+
+Q7. Is FTP encrypted by default?
+
+Answer: No. Traditional FTP does not encrypt credentials or file contents. Secure alternatives include SFTP and FTPS.
+
+
+make this md format so i need to full code pls
